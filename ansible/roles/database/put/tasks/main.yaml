@@ -1,0 +1,27 @@
+---
+#
+#
+#
+
+- name: "WebServices - PUT"
+  ansible.builtin.uri:
+    url: "{{ url_base }}/{ url_put }}"
+    method: PUT
+    body_format: json
+    body: |-
+      {{ webservices_put }}
+    status_code: 200
+    use_proxy: no
+    return_content: yes
+  register: webservices_get_json
+  delegate: "{{ delegate }}"
+  ignore_errors: true
+
+- name: "Convert JSON returned"
+    webservices_get: "{{ webservices_get_json.content | from_json }}"
+
+- name: "DEBUG if error"
+  debug:
+    msg: "{{ webservices_get }}"
+  when: webservices_get.error['code'] != '0'
+

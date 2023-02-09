@@ -1,0 +1,19 @@
+#
+#
+#
+
+- name: "Getting initial info"
+  set_fact:
+    host_name: "{{ ansible_hostname }}"
+    ipv4_address: "{{ ansible_facts.all_ipv4_addresses }}"
+    ipv6_address: "{{ ansible_facts.all_ipv6_addresses }}"
+
+- name: "Getting initial info"
+  set_fact:
+    data: { 'host_name': "{{ host_name }}", 'ipv4_address': "{{ ipv4_address }}", 'ipv6_address': "{{ ipv6_address }}"  }
+
+- name: "Put data on webservies"
+  include_tasks:
+    commons/tasks/Add_data_to_Json.yaml
+    
+

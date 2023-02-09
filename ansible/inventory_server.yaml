@@ -1,0 +1,8 @@
+#
+# This playbook starts the inventory on servers
+#
+
+- hosts: all
+  roles:
+    - role: server/inventory/scan_basic_settings
+

@@ -1,0 +1,5 @@
+---
+
+url_base: https://localhost/webservices
+url_put_json:  put_json.php
+url_get_json:  get_json.php

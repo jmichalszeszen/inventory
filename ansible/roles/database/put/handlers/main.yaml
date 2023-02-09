@@ -1,0 +1,9 @@
+---
+
+handlers:
+  - name: "String data"
+    set_fact:
+      put_json: "{{ put_json | default([]) + [ { filed_name: field_data } ] }}"
+
+    listen: "Data_to_JSON"
+
