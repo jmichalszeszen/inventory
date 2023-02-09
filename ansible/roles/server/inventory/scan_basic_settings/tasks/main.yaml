@@ -10,10 +10,14 @@
 
 - name: "Getting initial info"
   set_fact:
-    data: { 'host_name': "{{ host_name }}", 'ipv4_address': "{{ ipv4_address }}", 'ipv6_address': "{{ ipv6_address }}"  }
+    data: { 'host_name': "{{ host_name }}", 'ipv4_address': "{{ ipv4_address | join(';') }}", 'ipv6_address': "{{ ipv6_address | join(';') }}" }
 
-- name: "Put data on webservies"
+- name: "Put data on data structure"
   include_tasks:
     commons/tasks/Add_data_to_Json.yaml
+    
+- name: "Send data to webservice"
+  include_tasks:
+    commons/tasks/Send_data_to_webservice.yaml
     
 

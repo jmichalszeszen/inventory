@@ -2,5 +2,9 @@
 
 - name: Add host name
   set_fact:
-    put_json: "{{ put_json | default([]) + [ { item: data['item' } ] }}"
-  loop: "{{ data }}"
+    put_json: "{{ put_json | default([]) + [ item ] }}"
+  loop: 
+    - "{{ data }}"
+
+- debug:
+     msg: "{{ put_json }}"
