@@ -1,0 +1,15 @@
+---
+- name: "Incluir variaveis"
+  ansible.builtin.include_vars:
+    file: 'commons/vars/database.yaml'
+
+- name: "Incluir variaveis"
+  ansible.builtin.include_vars:
+    file: 'commons/vars/webserver.yaml'
+
+- name: "Copy files"
+  ansible.builtin.copy:
+    src: "commons/files/webserver"
+    dest: "{{ webserver_htdocs }}"
+
+

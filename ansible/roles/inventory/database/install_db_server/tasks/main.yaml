@@ -1,0 +1,37 @@
+---
+- name: "Incluir variaveis"
+  ansible.builtin.include_vars:
+    file: 'commons/vars/database.yaml'
+
+- name: Installing dependencies
+  package:
+    name: "{{item}}"
+    state: present
+    update_cache: yes
+  loop:
+    - python3-pip
+  become: yes
+
+- name: Installing Mysql and dependencies
+  package:
+    name: "{{item}}"
+    state: present
+    update_cache: yes
+  loop:
+    - mysql-server
+    - mysql-client
+    - python3-mysqldb
+    - libmysqlclient-dev
+  become: yes
+
+- name: start and enable mysql service
+  ansible.builtin.service:
+    name: mysql
+    state: started
+    enabled: yes
+
+- name: install mysqlclient
+  become: yes
+  shell:
+    "pip install mysqlclient"
+

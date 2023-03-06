@@ -1,0 +1,9 @@
+#
+#
+#
+- hosts: dbserver
+  roles:
+    #    - role: inventory/database/install_db_server
+    #    - role: inventory/database/create_database
+    - role: inventory/database/create_tables
+

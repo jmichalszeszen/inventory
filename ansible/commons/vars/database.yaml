@@ -1,0 +1,16 @@
+---
+
+db_user: 'inventory_user'
+db_pass: 'inventory_pass'
+db_name: 'inventory_db'
+
+tables: 
+  [
+    { 'table_name': 'drop_tables', 'table_file': 'drop_tables.sql'},
+    { 'table_name': 'inventory',   'table_file': 'inventory.sql' },
+    { 'table_name': 'details',     'table_file': 'details.sql'   },
+    { 'table_name': 'lifecicle',   'table_file': 'lifecicle.sql' }
+  ]
+
+
+

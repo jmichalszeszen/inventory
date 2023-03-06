@@ -1,0 +1,33 @@
+---
+- name: "Incluir variaveis"
+  ansible.builtin.include_vars:
+    file: 'commons/vars/database.yaml'
+
+- name: creating mysql user
+  become: yes
+  become_user: root
+  community.mysql.mysql_user:
+    name: "{{db_user}}"
+    password: "{{db_pass}}"
+    priv: '*.*:ALL'
+    host: '%'
+    state: present
+
+- name: creating inventory_db
+  become: yes
+  become_user: root
+  mysql_db:
+    name: "{{db_name}}"
+    state: present
+
+- name: Enable remote login to mysql
+  become: yes
+  become_user: root
+  lineinfile:
+     path: /etc/mysql/conf.d/mysql.cnf
+     regexp: '^bind-address'
+     line: 'bind-address = 0.0.0.0'
+     backup: yes
+  notify:
+    - Restart mysql
+

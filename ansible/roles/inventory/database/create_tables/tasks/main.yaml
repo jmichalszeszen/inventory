@@ -1,0 +1,29 @@
+---
+- name: "Incluir variaveis"
+  ansible.builtin.include_vars:
+    file: 'commons/vars/database.yaml'
+
+- name: "Copy files"
+  ansible.builtin.copy:
+    src: "commons/files/database/tables/{{ item.table_file }}"
+    dest: "/tmp/"
+  loop:
+    "{{ tables }}"
+
+- name: Create tables
+  become: true
+  become_user: root
+  community.mysql.mysql_db:
+    state: import
+    name: "{{ db_name }}"
+    target: "/tmp/{{ item.table_name }}.sql"
+  loop:
+    "{{ tables }}"
+
+- name: remove files
+  ansible.builtin.file:
+    path: "/tmp/{{ item.table_file }}"
+    state: absent
+  loop:
+    "{{ tables }}"    
+

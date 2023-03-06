@@ -1,0 +1,14 @@
+---
+
+url_base: 'https://localhost/webservices'
+url_put_json:  'put_json.php'
+url_get_json:  'get_json.php'
+
+webserver_htdocs: '/aplic/github/inventory/htdocs'
+
+delegate_hosts:
+  [
+    { 'server_name': 'localhost_1', 'ip_address': '127.0.0.1' },
+    { 'server_name': 'localhost_2', 'ip_address': '127.0.0.1' }
+  ]
+

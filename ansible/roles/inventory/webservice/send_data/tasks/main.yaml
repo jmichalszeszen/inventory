@@ -1,0 +1,32 @@
+---
+
+- name: "Find a delegate host"
+  set_fact:
+    delegate_host: "{{ delegate_hosts | shuffle }}"
+    return_post: []
+
+- name: "Send data"
+  ansible.builtin.uri:
+    url: "{{ url_base }}/{{ url_put_json }}"
+    method: POST
+    body_format: json
+    body: |-
+     {{ put_json | list }}
+    status_code: 200
+    use_proxy: no
+    return_content: true
+    validate_certs: false
+  register: return_json
+  delegate_to: "{{ delegate_host[0].ip_address }}"
+  ignore_errors: true 
+
+- name: "Converte dados"
+  set_fact:
+    return_post: "{{ return_json.content | from_json }}"
+
+- name: "Debug if return error"
+  debug:
+    msg:  "{{ return_post }}"
+  when: return_post.error['code'] != 0
+
+

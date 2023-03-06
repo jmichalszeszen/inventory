@@ -1,6 +1,10 @@
+---
 #
 #
-#
+
+- name: "Incluir variaveis"
+  ansible.builtin.include_vars:
+    file: 'commons/vars/webservice.yaml'
 
 - name: "Getting initial info"
   set_fact:
@@ -17,7 +21,7 @@
     commons/tasks/Add_data_to_Json.yaml
     
 - name: "Send data to webservice"
-  include_tasks:
-    commons/tasks/Send_data_to_webservice.yaml
+  ansible.builtin.include_role:
+    name: inventory/webservice/send_data
     
 
